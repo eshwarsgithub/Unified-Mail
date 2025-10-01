@@ -2,6 +2,14 @@
 
 A production-ready unified mail platform integrating multiple email providers (Gmail, Office365, IMAP, ProtonMail) with advanced features.
 
+## ⚠️ Important: Not Compatible with Vercel
+
+This application requires **long-running processes, persistent databases, and background workers**. It cannot be deployed to Vercel (serverless platform).
+
+**✅ Recommended Platforms:** Railway, Render, DigitalOcean App Platform, AWS ECS, or VPS with Docker
+
+See [DEPLOYMENT_OPTIONS.md](./DEPLOYMENT_OPTIONS.md) for detailed deployment instructions.
+
 ## Features
 
 - **Multi-Provider Support**: Gmail, Office365, IMAP, ProtonMail
@@ -17,21 +25,53 @@ A production-ready unified mail platform integrating multiple email providers (G
 
 ## Documentation
 
-See the `unified-mail-platform` directory for complete documentation:
+- **[Deployment Options](./DEPLOYMENT_OPTIONS.md)** - How to deploy (Railway, Render, DO, AWS, VPS)
+- [Getting Started](./unified-mail-platform/GETTING_STARTED.md) - Local development setup
+- [Deployment Guide](./unified-mail-platform/DEPLOYMENT_GUIDE.md) - Detailed deployment instructions
+- [Project Status](./unified-mail-platform/PROJECT_STATUS.md) - Current implementation status
+- [Backend Complete](./unified-mail-platform/BACKEND_COMPLETE.md) - Backend features
 
-- [Getting Started](./unified-mail-platform/GETTING_STARTED.md)
-- [Deployment Guide](./unified-mail-platform/DEPLOYMENT_GUIDE.md)
-- [Project Status](./unified-mail-platform/PROJECT_STATUS.md)
-- [Backend Complete](./unified-mail-platform/BACKEND_COMPLETE.md)
-
-## Quick Start
+## Quick Start (Local Development)
 
 ```bash
-cd unified-mail-platform/infrastructure
+# Clone repository
+git clone https://github.com/eshwarsgithub/Unified-Mail.git
+cd Unified-Mail/unified-mail-platform
+
+# Setup environment
+cd backend
+cp .env.example .env
+cd ..
+
+# Start infrastructure
+cd infrastructure
 docker-compose up -d
-cd ../backend
+cd ..
+
+# Run backend
+cd backend
+npm install
+npm run migrate
+npm run dev
+
+# Run frontend (in another terminal)
+cd frontend
 npm install
 npm run dev
 ```
 
-See [GETTING_STARTED.md](./unified-mail-platform/GETTING_STARTED.md) for detailed instructions.
+Access at:
+- Frontend: http://localhost:3001
+- Backend API: http://localhost:3000
+
+## Production Deployment
+
+See [DEPLOYMENT_OPTIONS.md](./DEPLOYMENT_OPTIONS.md) for platform-specific deployment guides.
+
+**Quick Deploy to Railway:**
+1. Fork this repository
+2. Go to [railway.app](https://railway.app)
+3. Click "Deploy from GitHub"
+4. Add PostgreSQL and Redis services
+5. Configure environment variables
+6. Deploy!

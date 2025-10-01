@@ -1,0 +1,63 @@
+name: unified-mail-platform
+region: nyc
+
+# Backend Service
+services:
+  - name: backend
+    github:
+      repo: eshwarsgithub/Unified-Mail
+      branch: main
+      deploy_on_push: true
+    dockerfile_path: unified-mail-platform/backend/Dockerfile
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    http_port: 3000
+    health_check:
+      http_path: /health
+    envs:
+      - key: NODE_ENV
+        value: "production"
+      - key: PORT
+        value: "3000"
+      - key: DATABASE_URL
+        value: ${db.DATABASE_URL}
+      - key: REDIS_URL
+        value: ${redis.DATABASE_URL}
+      - key: JWT_SECRET
+        type: SECRET
+        value: "GENERATE_ME_32_CHARS"
+      - key: VAULT_TOKEN
+        type: SECRET
+        value: "GENERATE_ME_32_CHARS"
+      - key: GOOGLE_CLIENT_ID
+        type: SECRET
+      - key: GOOGLE_CLIENT_SECRET
+        type: SECRET
+
+  # Frontend Service
+  - name: frontend
+    github:
+      repo: eshwarsgithub/Unified-Mail
+      branch: main
+      deploy_on_push: true
+    build_command: cd unified-mail-platform/frontend && npm install && npm run build
+    run_command: cd unified-mail-platform/frontend && npx serve -s dist -l 8080
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    http_port: 8080
+    envs:
+      - key: VITE_API_URL
+        value: ${backend.PUBLIC_URL}
+
+# Managed Databases
+databases:
+  - name: db
+    engine: PG
+    version: "15"
+    production: true
+    cluster_name: unified-mail-db
+
+  - name: redis
+    engine: REDIS
+    version: "7"
+    production: true
