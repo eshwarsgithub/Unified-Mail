@@ -1,0 +1,19 @@
+run = "cd unified-mail-platform/backend && npm install && npm run dev"
+language = "nodejs"
+entrypoint = "unified-mail-platform/backend/src/server.ts"
+
+[env]
+PATH = "/home/runner/$REPL_SLUG/.config/npm/node_global/bin:/home/runner/$REPL_SLUG/node_modules/.bin"
+npm_config_prefix = "/home/runner/$REPL_SLUG/.config/npm/node_global"
+
+[nix]
+channel = "stable-22_11"
+
+[deployment]
+run = ["sh", "-c", "cd unified-mail-platform/backend && npm install && npm run dev"]
+
+[languages.javascript]
+pattern = "**/{*.js,*.jsx,*.ts,*.tsx}"
+
+[languages.javascript.languageServer]
+start = "typescript-language-server --stdio"

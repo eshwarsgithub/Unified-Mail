@@ -66,12 +66,15 @@ Access at:
 
 ## Production Deployment
 
-See [DEPLOYMENT_OPTIONS.md](./DEPLOYMENT_OPTIONS.md) for platform-specific deployment guides.
+### Free Options (No Credit Card)
+- **[Replit](./REPLIT_DEPLOY.md)** - 100% free, no card required (goes to sleep after inactivity)
 
-**Quick Deploy to Railway:**
-1. Fork this repository
-2. Go to [railway.app](https://railway.app)
-3. Click "Deploy from GitHub"
-4. Add PostgreSQL and Redis services
-5. Configure environment variables
-6. Deploy!
+### Paid Options (Better for Production)
+See [DEPLOYMENT_OPTIONS.md](./DEPLOYMENT_OPTIONS.md) for detailed guides:
+- **Railway** - $5/month (easiest, recommended)
+- **Render** - $7/month (requires card even for free tier)
+- **DigitalOcean** - $12/month
+- **VPS** - $20/month (full control)
+
+### OAuth Setup
+See [OAUTH_SETUP.md](./OAUTH_SETUP.md) for Google Gmail integration setup.
